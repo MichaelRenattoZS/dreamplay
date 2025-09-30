@@ -114,9 +114,9 @@ footer {
 }
 
 .pagination a.active {
-  background: #ff5733; /* orange active state */
+  background: #0c20da; /* orange active state */
   color: white;
-  border: 1px solid #ff5733;
+  border: 1px solid #5c5ee0;
 }
 
 .pagination a:first-child,
@@ -211,4 +211,5 @@ footer {
 
 .arrow.left { left: 30px; }
 .arrow.right { right: 30px; }
+
 
