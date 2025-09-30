@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Games - DreamPlay Store</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <img src="images/logo.png" alt="DreamPlay Logo" class="logo">
+    <h1>DreamPlay Store</h1>
+    <p class="motto">"Where every game begins"</p>
+    <nav>
+      <ul>
+        <li><a href="web.html">Home</a></li>
+        <li><a href="game1.html" class="active-link">Games</a></li>
+        <li><a href="about.html">About Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Recommendation Section -->
+    <section class="recommendation">
+      <div class="recommendation-bg"></div>
+        <img id="recommendation-img" src="images/game1.jpg" alt="Elden Ring" class="recommendation-img">
+        <div class="recommendation-overlay">
+          <div class="recommendation-info">
+            <h2 id="recommendation-title">Elden Ring</h2>
+            <p id="recommendation-desc">
+              Venture into the Lands Between in this epic action RPG.
+            </p>
+            <p id="recommendation-price" class="price">$59.99</p>
+            <a id="recommendation-btn" href="#" class="btn">ADD TO CART</a>
+          </div>
+        </div>
+        <button class="arrow right" onclick="showNextRecommendation()">&gt;</button>
+        <button class="arrow left" onclick="showPrevRecommendation()">&lt;</button>
+      </div>
+    </section>
+
+    <!-- Divider -->
+    <hr style="margin: 40px 0; border: none; border-top: 2px solid #eee;">
+
+    <!-- All Games Section -->
+     <section class="game-section-containe" id="game-section-container"></section>
+      <h2>All Games</h2>
+      <div class="product-grid" id="product-grid"></div>
+        <!-- Products will be rendered here -->
+      </div>
+      <!-- Pagination -->
+      <div class="pagination" id="pagination">
+        <!-- Pagination buttons will be rendered here -->
+      </div>
+    </section>
+
+    <script>
+      // Only show these games in Recommendation
+      const recommendationGames = [
+        {
+          img: "images/game1.jpg",
+          title: "Elden Ring",
+          desc: "Venture into the Lands Between in this epic action RPG.",
+          price: "$59.99"
+        },
+        {
+          img: "images/game2.jpg",
+          title: "Minecraft",
+          desc: "Build, explore, and survive in an endless blocky world.",
+          price: "$29.99"
+        },
+        {
+          img: "images/game3.jpg",
+          title: "The Witcher 3: Wild Hunt",
+          desc: "Live the story of Geralt in one of the most acclaimed RPGs.",
+          price: "$39.99"
+        },
+        {
+          img: "images/game4.jpg",
+          title: "God of War",
+          desc: "Join Kratos and Atreus on their legendary Norse adventure.",
+          price: "$49.99"
+        }
+      ];
+
+      // All games for product grid
+      const games = [
+        {
+          img: "images/game1.jpg",
+          title: "Elden Ring",
+          desc: "Venture into the Lands Between in this epic action RPG.",
+          price: "$59.99"
+        },
+        {
+          img: "images/game2.jpg",
+          title: "Minecraft",
+          desc: "Build, explore, and survive in an endless blocky world.",
+          price: "$29.99"
+        },
+        {
+          img: "images/game3.jpg",
+          title: "The Witcher 3: Wild Hunt",
+          desc: "Live the story of Geralt in one of the most acclaimed RPGs.",
+          price: "$39.99"
+        },
+        {
+          img: "images/game4.jpg",
+          title: "God of War",
+          desc: "Join Kratos and Atreus on their legendary Norse adventure.",
+          price: "$49.99"
+        },
+        {
+          img: "images/game5.jpg",
+          title: "Cyberpunk 2077",
+          desc: "Experience life in Night City, a neon-drenched future world.",
+          price: "$59.99"
+        },
+        {
+          img: "images/game6.jpg",
+          title: "Fortnite",
+          desc: "The battle is building! Drop into the Battle Royale. Loot, build, explore, and fight in a game of 100 players competing to be the last one standing.",
+          price: "$49.99"
+        },
+        {
+          img: "images/game7.jpg",
+          title: "Bloons Tower Defense 6",
+          desc: "Pop Bloons with towers and heroes in this strategic defense game.",
+          price: "$14.99"
+        },
+        {
+          img: "images/game8.jpg",
+          title: "Lobotomy Corporation",
+          desc: "Manage monsters and survive in this unique horror management sim.",
+          price: "$24.99"
+        },
+        {
+          img: "images/game9.jpg",
+          title: "Library of Ruina",
+          desc: "Battle through stories in this deck-building RPG.",
+          price: "$29.99"
+        },
+        {
+          img: "images/game10.jpg",
+          title: "Lethal Company",
+          desc: "Explore abandoned moons and collect scrap in this co-op horror.",
+          price: "$9.99"
+        },
+        {
+          img: "images/game11.jpg",
+          title: "ARK: Survival Evolved",
+          desc: "Survive, tame dinosaurs, and build in a prehistoric world.",
+          price: "$39.99"
+        },
+        {
+          img: "images/game12.jpg",
+          title: "Left 4 Dead",
+          desc: "Fight zombies with friends in this classic co-op shooter.",
+          price: "$19.99"
+        }
+      ];
+
+      // Recommendation logic
+      let recommendationIndex = 0;
+      function showRecommendation(idx) {
+        const game = recommendationGames[idx];
+        document.getElementById('recommendation-img').src = game.img;
+        document.getElementById('recommendation-img').alt = game.title;
+        document.getElementById('recommendation-title').textContent = game.title;
+        document.getElementById('recommendation-desc').textContent = game.desc;
+        document.getElementById('recommendation-price').textContent = game.price;
+      }
+      function showPrevRecommendation() {
+        recommendationIndex = (recommendationIndex - 1 + recommendationGames.length) % recommendationGames.length;
+        showRecommendation(recommendationIndex);
+      }
+      function showNextRecommendation() {
+        recommendationIndex = (recommendationIndex + 1) % recommendationGames.length;
+        showRecommendation(recommendationIndex);
+      }
+      showRecommendation(recommendationIndex);
+
+      // Product pagination logic
+      let productStart = 0;
+      const productsPerView = 3;
+
+      function renderProducts() {
+        const grid = document.getElementById('product-grid');
+        grid.innerHTML = '';
+        for (let i = productStart; i < productStart + productsPerView && i < games.length; i++) {
+          const game = games[i];
+          const card = document.createElement('div');
+          card.className = 'product-card';
+          card.style.margin = "0 20px";
+          card.innerHTML = `
+            <img src="${game.img}" alt="${game.title}" style="width:320px; height:200px; object-fit:cover; border-radius:10px;">
+            <h3>${game.title}</h3>
+            <p>${game.desc}</p>
+            <p class="price">${game.price}</p>
+            <a href="#" class="btn">Add to Cart</a>
+          `;
+          grid.appendChild(card);
+        }
+        renderPagination();
+      }
+
+      function renderPagination() {
+        const pagination = document.getElementById('pagination');
+        pagination.innerHTML = '';
+        const totalPages = Math.ceil(games.length / productsPerView);
+        let currentPage = Math.floor(productStart / productsPerView);
+
+        // Prev button
+        const prevBtn = document.createElement('a');
+        prevBtn.href = "#";
+        prevBtn.innerHTML = "&laquo;";
+        prevBtn.onclick = function(e) {
+          e.preventDefault();
+          if (currentPage > 0) {
+            productStart = (currentPage - 1) * productsPerView;
+            renderProducts();
+          }
+        };
+        pagination.appendChild(prevBtn);
+
+        // Page numbers
+        for (let i = 0; i < totalPages; i++) {
+          const pageBtn = document.createElement('a');
+          pageBtn.href = "#";
+          pageBtn.textContent = (i + 1);
+          if (i === currentPage) pageBtn.className = "active";
+          pageBtn.onclick = function(e) {
+            e.preventDefault();
+            productStart = i * productsPerView;
+            renderProducts();
+          };
+          pagination.appendChild(pageBtn);
+        }
+
+        // Next button
+        const nextBtn = document.createElement('a');
+        nextBtn.href = "#";
+        nextBtn.innerHTML = "&raquo;";
+        nextBtn.onclick = function(e) {
+          e.preventDefault();
+          if (currentPage < totalPages - 1) {
+            productStart = (currentPage + 1) * productsPerView;
+            renderProducts();
+          }
+        };
+        pagination.appendChild(nextBtn);
+      }
+
+      renderProducts();
+    </script>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 DreamPlay Store. All Rights Reserved.</p>
+  </footer>
+</body>
+</html>
